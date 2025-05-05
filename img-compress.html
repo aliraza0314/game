@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free online image compression tool. Reduce image size with quality control.">
+  <meta name="keywords" content="image compression, reduce image size, online image optimizer, SEO, AdSense ready">
+  <meta name="author" content="YourName">
+  <title>Image Compression Tool - Fast & SEO Optimized</title>
+
+  <!-- Style -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f2f2f2;
+    }
+
+    header {
+      background-color: #007BFF;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    main {
+      padding: 1rem;
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .input-section {
+      margin: 1rem 0;
+    }
+
+    .preview {
+      margin-top: 1rem;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .adsense-placeholder {
+      margin: 1rem 0;
+      background: #ddd;
+      height: 90px;
+      text-align: center;
+      line-height: 90px;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 600px) {
+      header, main {
+        padding: 1rem;
+      }
+    }
+  </style>
+
+  <!-- Google AdSense Script -->
+  <script data-ad-client="ca-pub-XXXXXXX" async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Online Image Compressor</h1>
+    <p>Reduce image size without losing quality</p>
+  </header>
+
+  <!-- Ad placeholder -->
+  <div class="adsense-placeholder">
+    AdSpace 1 (Insert Ad Unit Here)
+    <!-- Example AdSense code (pub-2969708901890071) -->
+    <!-- <ins class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-XXXXXXX"
+      data-ad-slot="YOUR_AD_UNIT"
+      data-ad-format="auto"
+      data-full-width-responsive="true"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> -->
+  </div>
+
+  <main>
+    <section class="input-section">
+      <label>Select Image: <input type="file" accept="image/*" id="imageInput" /></label>
+    </section>
+
+    <section class="input-section">
+      <label for="quality">Compression Level (1 - High, 100 - Low):</label>
+      <input type="range" id="quality" min="1" max="100" value="70">
+    </section>
+
+    <button onclick="compressImage()">Compress Image</button>
+
+    <section class="preview">
+      <h3>Original Image:</h3>
+      <img id="originalImg" />
+      <h3>Compressed Image:</h3>
+      <img id="compressedImg" />
+      <a id="downloadLink" style="display:none;" download="compressed-image.jpg">Download Compressed Image</a>
+    </section>
+  </main>
+
+  <!-- Ad placeholder -->
+  <div class="adsense-placeholder">
+    AdSpace 2 (Insert Ad Unit Here)
+  </div>
+
+  <!-- JS Script -->
+  <script>
+    let originalImage = null;
+
+    document.getElementById('imageInput').addEventListener('change', function (event) {
+      const file = event.target.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById('originalImg').src = e.target.result;
+          originalImage = new Image();
+          originalImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function compressImage() {
+      const qualityInput = document.getElementById('quality').value;
+      const outputImg = document.getElementById('compressedImg');
+      const downloadLink = document.getElementById('downloadLink');
+
+      if (!originalImage) {
+        alert("Please upload an image first.");
+        return;
+      }
+
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      canvas.width = originalImage.width;
+      canvas.height = originalImage.height;
+
+      ctx.drawImage(originalImage, 0, 0);
+
+      const quality = parseInt(qualityInput, 10) / 100;
+      const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+
+      outputImg.src = compressedDataUrl;
+      downloadLink.href = compressedDataUrl;
+      downloadLink.style.display = 'inline-block';
+    }
+  </script>
+</body>
+</html>
